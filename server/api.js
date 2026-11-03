@@ -344,13 +344,13 @@ function challengerMatch(e, eventId) {
       sets: sets.map((s) => s[idx]),
     }
   }
-  const round = e.tournament_round.split(' - ').pop()
+  const round = (e.tournament_round ?? '').split(' - ').pop()
   return {
     id: String(e.event_key),
     eventId,
     eventName: e.tournament_name,
     grouping: doubles ? 'Doubles' : 'Singles',
-    round: e.event_qualification === 'True' ? `Qualifying ${round}` : round,
+    round: e.event_qualification === 'True' ? `Qualifying ${round}`.trim() : round,
     date: `${e.event_date}T${e.event_time}:00Z`,
     state,
     period: period ?? sets.length,
